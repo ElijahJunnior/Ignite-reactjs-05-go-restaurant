@@ -5,9 +5,10 @@ import { Food } from '../../components/Food';
 
 
 import api from '../../services/api';
-import ModalAddFood from '../../components/ModalAddFood';
 import ModalEditFood from '../../components/ModalEditFood';
 import { FoodsContainer } from './styles';
+
+import { ModalAddFood } from '../../components/ModalAddFood';
 
 class Dashboard extends Component {
   constructor(props) {

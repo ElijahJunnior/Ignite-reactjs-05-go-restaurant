@@ -7,7 +7,7 @@ import { Container } from './styles';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string,
-  icon: ReactNode,
+  // icon: ReactNode,
 }
 
 export function Input(props: InputProps) {
@@ -20,24 +20,15 @@ export function Input(props: InputProps) {
   const { fieldName, defaultValue, registerField } = useField(props.name);
 
   function handleInputFocus() {
+    console.log('inputFocus');
     setIsFocused(true);
   }
 
   function handleInputBlur(value: string) {
     setIsFocused(false);
-
+    console.log('inputBlur');
     setIsFilled(!!value);
   }
-
-  // const handleInputFocus = useCallback(() => {
-  //   setIsFocused(true);
-  // }, []);
-
-  // const handleInputBlur = useCallback(() => {
-  //   setIsFocused(false);
-
-  //   setIsFilled(!!inputRef.current?.value);
-  // }, []);
 
   useEffect(() => {
     registerField({
