@@ -44,32 +44,3 @@ export function Modal(props: ModalProps) {
 
 }
 
-// class Modal2 extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     const { isOpen } = this.props;
-//     this.state = {
-//       modalStatus: isOpen
-//     }
-//   }
-
-//   componentDidUpdate(prevProps) {
-//     const { isOpen } = this.props;
-
-//     if (prevProps.isOpen !== isOpen) {
-//       console.log(this.props)
-//       this.setState({ modalStatus: isOpen })
-//     }
-//   }
-
-//   render() {
-//     const { children, setIsOpen } = this.props;
-//     const { modalStatus } = this.state;
-
-//     return (
-
-//     );
-//   }
-//};
-
