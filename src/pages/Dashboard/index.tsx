@@ -28,65 +28,53 @@ export function Dashboard() {
         api.get('/foods').then(response => setFoods(response.data));
     }, [])
 
-    async function handleAddFood() {
+    async function handleAddFood(data: FoodData) {
 
-        // ### DECLARAÇÃO ORIGINAL DA FUNÇÃO ###
-        //   handleAddFood = async food => {
-        // ### FIM DECLARAÇÃO ORIGINAL DA FUNÇÃO ###
+        try {
 
-        // const { foods } = this.state;
+            const response = await api.post('/foods', {
+                ...data,
+                available: true,
+            });
 
-        // try {
-        //   const response = await api.post('/foods', {
-        //     ...food,
-        //     available: true,
-        //   });
+            console.log(response);
 
-        //   this.setState({ foods: [...foods, response.data] });
-        // } catch (err) {
-        //   console.log(err);
-        // }
+            setFoods([...foods, response.data]);
+
+        } catch (err) {
+            console.log('erro', err);
+        }
 
     }
 
-    async function handleUpdateFood() {
+    async function handleUpdateFood(data: FoodData) {
 
-        // ### DECLARAÇÃO ORIGINAL DA FUNÇÃO ###
-        //   handleUpdateFood = async food => {
-        // ### FIM DECLARAÇÃO ORIGINAL DA FUNÇÃO ###
+        try {
 
-        // const { foods, editingFood } = this.state;
+            const foodUpdated = await api.put(
+                `/foods/${editingFood.id}`,
+                { ...editingFood, ...data },
+            );
 
-        // try {
-        //     const foodUpdated = await api.put(
-        //         `/foods/${editingFood.id}`,
-        //         { ...editingFood, ...food },
-        //     );
+            const foodsUpdated = foods.map(f =>
+                f.id !== foodUpdated.data.id ? f : foodUpdated.data,
+            );
 
-        //     const foodsUpdated = foods.map(f =>
-        //         f.id !== foodUpdated.data.id ? f : foodUpdated.data,
-        //     );
+            setFoods(foodsUpdated)
 
-        //     this.setState({ foods: foodsUpdated });
-        // } catch (err) {
-        //     console.log(err);
-        // }
+        } catch (err) {
+            console.log(err);
+        }
 
     }
 
-    async function handleDeleteFood() {
+    async function handleDeleteFood(id: string) {
 
-        // ### DECLARAÇÃO ORIGINAL DA FUNÇÃO ###
-        //        handleDeleteFood = async id => {
-        // ### FIM DECLARAÇÃO ORIGINAL DA FUNÇÃO ###
+        await api.delete(`/foods/${id}`);
 
-        // const { foods } = this.state;
+        const foodsFiltered = foods.filter(food => food.id !== id);
 
-        // await api.delete(`/foods/${id}`);
-
-        // const foodsFiltered = foods.filter(food => food.id !== id);
-
-        // this.setState({ foods: foodsFiltered });
+        setFoods(foodsFiltered);
 
     }
 
@@ -104,7 +92,6 @@ export function Dashboard() {
 
     function handleEditFood(food: FoodData) {
 
-        //setEditingFood({ available: false, id: 'a', description: 'teste', image: 'test', name: 'teste', price: 1.99 });
         setEditingFood(food);
         setEditModalOpen(true);
 
@@ -139,119 +126,3 @@ export function Dashboard() {
     )
 
 }
-
-
-
-// class Dashboard extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       foods: [],
-//       editingFood: {},
-//       modalOpen: false,
-//       editModalOpen: false,
-//     }
-//   }
-
-// #FEITO
-//   async componentDidMount() {
-//     const response = await api.get('/foods');
-
-//     this.setState({ foods: response.data });
-//   }
-
-//   handleAddFood = async food => {
-//     const { foods } = this.state;
-
-//     try {
-//       const response = await api.post('/foods', {
-//         ...food,
-//         available: true,
-//       });
-
-//       this.setState({ foods: [...foods, response.data] });
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-
-//   handleUpdateFood = async food => {
-//     const { foods, editingFood } = this.state;
-
-//     try {
-//       const foodUpdated = await api.put(
-//         `/foods/${editingFood.id}`,
-//         { ...editingFood, ...food },
-//       );
-
-//       const foodsUpdated = foods.map(f =>
-//         f.id !== foodUpdated.data.id ? f : foodUpdated.data,
-//       );
-
-//       this.setState({ foods: foodsUpdated });
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-
-//   handleDeleteFood = async id => {
-//     const { foods } = this.state;
-
-//     await api.delete(`/foods/${id}`);
-
-//     const foodsFiltered = foods.filter(food => food.id !== id);
-
-//     this.setState({ foods: foodsFiltered });
-//   }
-
-//   toggleModal = () => {
-//     const { modalOpen } = this.state;
-
-//     this.setState({ modalOpen: !modalOpen });
-//   }
-
-//   toggleEditModal = () => {
-//     const { editModalOpen } = this.state;
-
-//     this.setState({ editModalOpen: !editModalOpen });
-//   }
-
-//   handleEditFood = food => {
-//     this.setState({ editingFood: food, editModalOpen: true });
-//   }
-
-//   render() {
-//     const { modalOpen, editModalOpen, editingFood, foods } = this.state;
-
-//     return (
-//       <>
-//         <Header openModal={this.toggleModal} />
-//         <ModalAddFood
-//           isOpen={modalOpen}
-//           setIsOpen={this.toggleModal}
-//           handleAddFood={this.handleAddFood}
-//         />
-//         <ModalEditFood
-//           isOpen={editModalOpen}
-//           setIsOpen={this.toggleEditModal}
-//           editingFood={editingFood}
-//           handleUpdateFood={this.handleUpdateFood}
-//         />
-
-//         <FoodsContainer data-testid="foods-list">
-//           {foods &&
-//             foods.map(food => (
-//               <Food
-//                 key={food.id}
-//                 food={food}
-//                 handleDelete={this.handleDeleteFood}
-//                 handleEditFood={this.handleEditFood}
-//               />
-//             ))}
-//         </FoodsContainer>
-//       </>
-//     );
-//   }
-// };
-
-// export default Dashboard;

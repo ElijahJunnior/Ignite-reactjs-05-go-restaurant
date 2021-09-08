@@ -8,14 +8,16 @@ import { Input } from '../Input';
 type ModalAddFoodProps = {
   isOpen: boolean,
   setIsOpen: () => void,
-  handleAddFood: (data: Food) => void
+  handleAddFood: (data: Food) => Promise<void>
 }
 
 type Food = {
+  id: string,
   name: string,
   image: string,
   price: number,
-  description: string
+  description: string,
+  available: boolean
 }
 
 export function ModalAddFood(props: ModalAddFoodProps) {

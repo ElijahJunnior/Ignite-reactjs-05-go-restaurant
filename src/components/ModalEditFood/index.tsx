@@ -9,14 +9,16 @@ type ModalEditFoodProps = {
   isOpen: boolean,
   setIsOpen: () => void,
   editingFood: Food,
-  handleUpdateFood: (food: Food) => void
+  handleUpdateFood: (food: Food) => Promise<void>
 }
 
 type Food = {
+  id: string,
   name: string,
   image: string,
   price: number,
   description: string
+  available: boolean
 }
 
 export function ModalEditFood(props: ModalEditFoodProps) {

@@ -25,12 +25,20 @@
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png"
     },
     {
-      "name": "Lasanho da Simone",
+      "name": "Lasanho",
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food1.png",
-      "price": 34.99,
-      "description": "Melhor Lasanha do mundo",
+      "price": "34.99",
+      "description": "Lasanho da Simone",
       "available": true,
       "id": 4
+    },
+    {
+      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food1.png",
+      "name": "Musse",
+      "price": "29,99",
+      "description": "Musse de morango do Junior",
+      "available": true,
+      "id": 6
     }
   ]
 }
